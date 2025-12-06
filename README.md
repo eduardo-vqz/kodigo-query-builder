@@ -1,59 +1,216 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Actividad 2: Consultas SQL en Laravel (Query Builder & ORM)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto forma parte de la **Actividad 2** de la Academia de Tecnología Creativa Kódigo.  
+El objetivo es practicar consultas SQL utilizando **Query Builder** y **Eloquent ORM**, trabajando sobre dos tablas relacionadas: `usuarios` y `pedidos`.  
+Además, incluye una **interfaz gráfica con Bootstrap** para visualizar cada ejercicio de forma interactiva.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.x  
+- Laravel 10.x  
+- MySQL / MariaDB  
+- Eloquent ORM  
+- Query Builder  
+- Bootstrap 5  
+- Blade Templates  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Base de Datos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+El proyecto utiliza una base de datos llamada:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+query_builder
+```
 
-## Laravel Sponsors
+### Tablas principales
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### `usuarios`
+- id  
+- nombre  
+- email  
+- timestamps  
 
-### Premium Partners
+#### `pedidos`
+- id  
+- usuario_id (FK → usuarios.id)  
+- producto  
+- cantidad  
+- total  
+- timestamps  
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## Instalación del Proyecto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1️⃣ Clonar el repositorio
 
-## Code of Conduct
+```bash
+git clone https://github.com/tu_usuario/actividad2-laravel-consultas.git
+cd actividad2-laravel-consultas
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2️⃣ Instalar dependencias
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3️⃣ Configurar `.env`
 
-## License
+```env
+DB_DATABASE=query_builder
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Luego generar la key:
+
+```bash
+php artisan key:generate
+php artisan config:clear
+```
+
+---
+
+## Migraciones y Seeders
+
+### 4️⃣ Ejecutar migraciones
+
+```bash
+php artisan migrate
+```
+
+### 5️⃣ Ejecutar seeders
+
+```bash
+php artisan db:seed
+```
+
+Los seeders poblan las tablas `usuarios` y `pedidos` con datos de prueba.
+
+---
+
+## Estructura del Proyecto
+
+```
+app/
+ └── Http/
+     └── Controllers/
+         └── ConsultaController.php
+
+app/Models/
+ ├── Usuario.php
+ └── Pedido.php
+
+resources/views/consultas/
+ └── index.blade.php
+
+routes/
+ └── web.php
+
+database/seeders/
+ ├── UsuariosSeeder.php
+ ├── PedidosSeeder.php
+ └── DatabaseSeeder.php
+```
+
+---
+
+## Ejercicios Implementados
+
+Todos los ejercicios se encuentran en:
+
+```
+app/Http/Controllers/ConsultaController.php
+```
+
+| Ejercicio | Descripción |
+|----------|-------------|
+| 1 | Visualizar registros insertados (seeders) |
+| 2 | Obtener pedidos del usuario con ID 2 |
+| 3 | Pedidos con nombre y correo del usuario |
+| 4 | Pedidos con total entre 100 y 250 |
+| 5 | Usuarios cuyo nombre inicia con "R" |
+| 6 | Contar pedidos del usuario con ID 5 |
+| 7 | Pedidos ordenados por total (descendente) |
+| 8 | Suma total del campo `total` |
+| 9 | Pedido más económico con usuario |
+| 10 | Pedidos agrupados por usuario |
+
+---
+
+## Interfaz Gráfica
+
+Ruta principal:
+
+```
+http://127.0.0.1:8000/
+```
+
+La vista se encuentra en:
+
+```
+resources/views/consultas/index.blade.php
+```
+
+Incluye:
+
+- Cards de Bootstrap  
+- Botones para ejecutar cada consulta  
+- Panel de resultados JSON  
+- Uso de `fetch()` para comunicación con backend  
+
+---
+
+## Rutas Disponibles
+
+| Ruta | Acción |
+|------|--------|
+| `/` | Menú principal (interfaz gráfica) |
+| `/ejercicio1` | Ver usuarios y pedidos |
+| `/ejercicio2` | Pedidos del usuario 2 |
+| `/ejercicio3` | Pedidos + usuario |
+| `/ejercicio4` | Pedidos entre 100–250 |
+| `/ejercicio5` | Usuarios con nombre iniciando en "R" |
+| `/ejercicio6` | Total de pedidos usuario 5 |
+| `/ejercicio7` | Pedidos ordenados por total desc |
+| `/ejercicio8` | Suma total de pedidos |
+| `/ejercicio9` | Pedido más barato |
+| `/ejercicio10` | Pedidos agrupados por usuario |
+
+---
+
+## Ejecutar Proyecto
+
+```bash
+php artisan serve
+```
+
+Abrir en navegador:
+
+```
+http://127.0.0.1:8000/
+```
+
+---
+
+## Objetivo de la Actividad
+
+- Comprender relaciones entre tablas utilizando ORM  
+- Practicar consultas SQL con Laravel  
+- Generar migraciones, modelos y seeders  
+- Visualizar resultados mediante interfaz gráfica  
+- Dominar Query Builder y Eloquent  
+
+---
+
+## Autor
+
+Proyecto desarrollado para fines educativos y práctica profesional  
+en la **Academia de Tecnología Creativa Kódigo**.
+
+
